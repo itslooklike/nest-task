@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
     "strict": true,
+
+    // нужен для `dto` в `strict` режиме
+    "strictPropertyInitialization": false,
+
     "module": "commonjs",
+    "esModuleInterop": true,
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,

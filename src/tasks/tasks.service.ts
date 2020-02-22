@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, NotFoundException } from '@nestjs/common'
 import nanoid from 'nanoid'
 import { Task, TaskStatus } from './tasks.model'
 import { CreateTaskDto } from './dto/create-task.dto'
@@ -10,6 +10,16 @@ export class TasksService {
 
   getAllTasks(): Task[] {
     return this.tasks
+  }
+
+  getTaskById(id: string): Task {
+    const found = this.tasks.find(task => task.id === id)
+
+    if (!found) {
+      throw new NotFoundException(`🛑 Task with ID: ${id} Not Found`)
+    }
+
+    return found
   }
 
   getTasksWithFilters(filterDot: GetTasksFilterDto): Task[] {
@@ -32,20 +42,9 @@ export class TasksService {
     return tasks
   }
 
-  // FIXME: что-то сделать с undefined
-  getTaskById(id: string): Task | undefined {
-    return this.tasks.find(task => task.id === id)
-  }
-
-  // FIXME: что-то сделать с undefined
-  deleteTask(id: string): Task | undefined {
-    const taskToDelete = this.tasks.find(task => task.id === id)
-
-    if (taskToDelete) {
-      this.tasks = this.tasks.filter(task => task.id !== id)
-    }
-
-    return taskToDelete
+  deleteTask(id: string): void {
+    const taskToDelete = this.getTaskById(id)
+    this.tasks = this.tasks.filter(task => task.id !== taskToDelete.id)
   }
 
   createTask(createTaskDto: CreateTaskDto): Task {
@@ -62,7 +61,7 @@ export class TasksService {
     return task
   }
 
-  updateTask(id: string, status: TaskStatus): Task | undefined {
+  updateTask(id: string, status: TaskStatus): Task {
     const taskToUpdate = this.getTaskById(id)
 
     if (taskToUpdate) {

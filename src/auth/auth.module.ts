@@ -8,9 +8,9 @@ import { UserRepository } from './user.repository'
 import { JwtStrategy } from './jwt.strategy'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserRepository])],
+  imports: [TypeOrmModule.forFeature([UserRepository]), PassportModule],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
-  exports: [JwtStrategy, PassportModule],
+  exports: [JwtStrategy],
 })
 export class AuthModule {}

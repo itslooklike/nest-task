@@ -11,6 +11,6 @@ npm run start:dev
 
 https://github.com/khezen/compose-postgres
 
-PgAdmin: http://localhost:5050/ pgadmin4@pgadmin.org admin
-postgres: localhost:5432 postgres changeme
+Access to postgres: localhost:5432 postgres changeme
+Access to PgAdmin: http://localhost:5050/ pgadmin4@pgadmin.org admin
 db name: taskmanagment

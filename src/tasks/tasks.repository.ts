@@ -35,7 +35,7 @@ export class TaskRepository extends Repository<Task> {
         `Failed to get tasks for ${user.username}, with ${JSON.stringify(
           filterDto,
         )}`,
-        error,
+        error.stack,
       )
       throw new InternalServerErrorException()
     }

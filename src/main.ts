@@ -7,6 +7,13 @@ async function bootstrap() {
   const logger = new Logger('bootstrap')
   const app = await NestFactory.create(AppModule)
 
+  if (process.env.NODE_ENV === 'development') {
+    app.enableCors()
+  } else {
+    const { origin } = config.get('server') as { origin: string }
+    app.enableCors({ origin })
+  }
+
   const serverConfig = config.get('server') as { port: number }
 
   const port = process.env.PORT || serverConfig.port

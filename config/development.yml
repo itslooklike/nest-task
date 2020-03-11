@@ -4,5 +4,5 @@ db:
   password: 'changeme'
   synchronize: true
 
-  jwt:
-    secret: 'topSecret51'
+jwt:
+  secret: 'topSecret51'
